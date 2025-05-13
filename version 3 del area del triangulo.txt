@@ -1,0 +1,40 @@
+import tkinter as tk
+
+def area():
+    valora = float(entrada_valoa.get())# cambiamos el tipo de dato de entero a flotante (decimales)
+    valorb = float(entrada_valob.get())
+    resultado = (valora * valorb) / 2
+
+    
+    ventana_resultado = tk.Toplevel()
+    ventana_resultado.title("Resultado")
+    ventana_resultado.geometry("600x200")
+    ventana_resultado.configure(bg="lightblue") # le agregamos color 
+
+    mensaje = f"El área es: {resultado}\n"
+    mensaje += "El área es grande" if resultado > 100 else "El área es pequeña"#agregamos el si para poder determinar si el area es grande o pequeña 
+
+    tk.Label(ventana_resultado, text=mensaje, bg="lightblue").pack(padx=20, pady=20)
+
+def empezardenuevo():
+    entrada_valoa.delete(0, tk.END) # le agregamos una funcion para poder limpiar 
+    entrada_valob.delete(0, tk.END)
+
+
+ventana = tk.Tk()
+ventana.title("Área del triángulo")
+ventana.geometry("400x250")
+ventana.configure(bg="pink")
+
+tk.Label(ventana, text="ingresa la base: ", bg="pink").pack()
+entrada_valoa = tk.Entry(ventana)
+entrada_valoa.pack()
+
+tk.Label(ventana, text="ingresa la altura: ", bg="pink").pack()
+entrada_valob = tk.Entry(ventana)
+entrada_valob.pack()
+
+tk.Button(ventana, text="area", command=area).pack()
+tk.Button(ventana, text="empezar de nuevo", command=empezardenuevo).pack()#se agrego un boton para poder limpiar el anterior dato y poder ingresar de nuevo
+
+ventana.mainloop()

@@ -1,0 +1,18 @@
+def calcular_area():
+    while True:
+        valora = float(input("Ingresa la base: "))
+        valorb = float(input("Ingresa la altura: "))
+        resultado = (valora * valorb) / 2
+        print(f"El área es: {resultado}")
+
+        if resultado > 100:
+            print("El área es grande")
+        else:
+            print("El área es pequeña")
+
+        continuar = input("¿Quieres calcular otra área? (s/n): ").strip().lower()
+        if continuar != "s":
+            print("se termino el calculo.")
+            break
+
+calcular_area()
