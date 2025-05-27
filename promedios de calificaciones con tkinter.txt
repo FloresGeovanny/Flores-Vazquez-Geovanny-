@@ -1,0 +1,63 @@
+import tkinter as tk
+
+class CalificacionesApp:
+    def __init__(self, ventana):
+        self.ventana = ventana
+        self.ventana.title("Calificaciones")
+        self.ventana.geometry("600x400")#configuraciones de la ventana con color, tamaño y titulo de la misma
+        self.ventana.config(bg="light blue")
+        
+        tk.Label(ventana, text="Calificaciones y sus posiciones o ranking", fg="Black",bg="light blue").pack()
+        tk.Label(ventana, text="Nombre:", fg="blue",bg="light blue").pack()
+        self.entrada_nombre = tk.Entry(ventana, bg="light yellow")
+        self.entrada_nombre.pack()
+
+        tk.Label(ventana, text="Calificación 1:", fg="blue", bg="light blue").pack() #los espacios para poder agregar las calificaciones
+        self.entrada_prim = tk.Entry(ventana, bg="light yellow")
+        self.entrada_prim.pack()
+
+        tk.Label(ventana, text="Calificación 2:", fg="blue",bg="light blue").pack()
+        self.entrada_seg = tk.Entry(ventana, bg="light yellow")
+        self.entrada_seg.pack()
+
+        tk.Label(ventana, text="Calificación 3:", fg="blue",bg="light blue").pack()
+        self.entrada_ter = tk.Entry(ventana, bg="light yellow")
+        self.entrada_ter.pack()
+
+        tk.Button(ventana, text="Promediar", fg="blue",bg="light blue", command=self.agregar_calificacion).pack()#el boton para introducir las calificaciones y borrarlas para despues ingresar otras nuevamente
+
+        self.etiqueta_resultado = tk.Label(ventana, text="Ranking de Calificaciones :", fg="blue",bg="light blue")
+        self.etiqueta_resultado.pack()
+
+        self.lista_calificaciones = []
+
+    def agregar_calificacion(self):
+        nombre = self.entrada_nombre.get()
+        try:
+            calificaciones = [
+                float(self.entrada_prim.get()),
+                float(self.entrada_seg.get()), #los valores que se agregan son de tipo flotante por el punto decimal
+                float(self.entrada_ter.get())
+            ]
+            promedio = sum(calificaciones) / len(calificaciones) #aqui se hace la operacion y se divide entre 3 
+            self.lista_calificaciones.append((nombre, sorted(calificaciones, reverse=True), promedio))
+            self.lista_calificaciones.sort(key=lambda x: x[2], reverse=True)
+            self.actualizar_lista()
+
+            self.entrada_nombre.delete(0, tk.END)
+            self.entrada_prim.delete(0, tk.END)
+            self.entrada_seg.delete(0, tk.END) #borra la informacion, para poder ingresar una nueva
+            self.entrada_ter.delete(0, tk.END)
+
+        except ValueError:
+            self.etiqueta_resultado.config(text="Ingrese calificaciones válidas")
+
+    def actualizar_lista(self):
+        texto = "Calificaciones registradas:\n"
+        for nombre, calificaciones, promedio in self.lista_calificaciones:
+            texto += f"{nombre}: {calificaciones} | Promedio: {promedio:.2f}\n" #aqui se imprime la manera en que se vera el ranking
+        self.etiqueta_resultado.config(text=texto)
+
+ventana = tk.Tk()
+app = CalificacionesApp(ventana)
+ventana.mainloop()
