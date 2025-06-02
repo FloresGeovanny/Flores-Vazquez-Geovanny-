@@ -1,0 +1,22 @@
+class Triangulo:#clase triangulo
+    def __init__(self):
+        self.base = 0
+        self.altura = 0
+        self.resultado = 0 #se definio el valor de self.resultado
+
+    def leer_datos(self): #funcion leer datos
+        self.base = float(input("ingrese la base del triángulo : ")) #letreros que dan al usuario para que ingrese los valores que se le piden
+        self.altura = float(input("Iingrese la altura del triángulo : ")) #los valores ingresados de igual manera pueden ser de tipo decimal
+
+    def calcular_area(self):#funcion calcular area
+        return (self.base * self.altura)/2 #con los valores almacenados se hace la operacion y da el resultado
+        
+
+
+def main():
+    t = Triangulo() #la clase Triangulo genera un objeto el cual no nombramos "t"
+    t.leer_datos() #nos pide los valores de base y altura
+    t.calcular_area()#nos imprime el resultado
+    print ("el resultado es", t.calcular_area())#el cual se imprime abajo al llamarla
+main()
+
